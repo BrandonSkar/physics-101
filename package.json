@@ -1,0 +1,12 @@
+{
+  "name": "physics-101",
+  "private": true,
+  "description": "Physics 101: The Real-Life Edition. An interactive, hour-long physics class served at brandonskar.com/physics.",
+  "scripts": {
+    "dev": "wrangler dev --var LOCAL:1",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}

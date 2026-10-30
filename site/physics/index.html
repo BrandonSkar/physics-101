@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Physics 101: The Real-Life Edition · Brandon Skar</title>
+<meta name="description" content="A free, hands-on, hour-long Physics 101 class built from real life: speeding, stopping distances, dropped phones, free throws, elevators, egg drops, donuts, power bills and thunderstorms.">
+<meta property="og:title" content="Physics 101: The Real-Life Edition">
+<meta property="og:description" content="An hour of hands-on physics from everyday life, with labs to play with, real-world problems and a final exam.">
+<meta name="theme-color" content="#eef4fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111821" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Mochiy+Pop+One&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the lesson</a>
+
+<header class="top">
+	<div class="wrap top-row">
+		<nav class="crumbs" aria-label="Site">
+			<a class="name" href="/">Brandon Skar</a>
+			<span aria-hidden="true">/</span>
+			<a class="course" href="#/">Physics 101</a>
+		</nav>
+		<div class="top-tools">
+			<button class="chip" id="open-formulas" type="button" aria-haspopup="dialog">📐 <span>Formulas</span></button>
+			<button class="chip" id="open-calc" type="button" aria-expanded="false" aria-controls="calc">🧮 <span>Calculator</span></button>
+			<span class="xp" title="Your XP"><b id="xp-num">0</b> XP</span>
+		</div>
+	</div>
+	<div class="progress" role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div class="progress-bar" id="progress-bar"></div></div>
+</header>
+
+<main class="wrap" id="main">
+
+<!-- ================================================================ Home -->
+<section class="view" id="home">
+	<div class="hero">
+		<div class="hero-text">
+			<p class="eyebrow">Free · Hands-on · About an hour</p>
+			<h1>Physics 101<span>The real-life edition</span></h1>
+			<p class="hero-lede">No lab coat required. Learn the physics hiding in your commute, your kitchen, your power bill and that phone you keep dropping. Every lesson is a real situation, one big idea, a lab you can play with and a few problems straight from everyday life.</p>
+			<div class="hero-actions">
+				<a class="btn primary big" id="start" href="#/speed">Start class</a>
+				<span class="hero-note" id="rank-note">9 lessons · 10 labs · 1 final exam</span>
+			</div>
+		</div>
+		<svg class="hero-art" viewBox="0 0 320 240" role="img" aria-label="A basketball arcing through the air into a hoop">
+			<rect x="4" y="4" width="312" height="232" rx="26" class="art-paper"/>
+			<path d="M52 158 Q150 -44 252 112" class="art-arc"/>
+			<g class="art-hoop">
+				<rect x="282" y="58" width="8" height="74" rx="3"/>
+				<path d="M282 96 L292 96"/>
+			</g>
+			<path d="M236 112 L268 112" class="art-rim"/>
+			<path d="M238 113 L244 140 L260 140 L266 113 M244 140 L252 113 L260 140" class="art-net"/>
+			<g class="art-person">
+				<circle cx="40" cy="150" r="9"/>
+				<path d="M40 160 L40 196 M40 196 L30 222 M40 196 L50 222 M40 170 L52 158 M40 172 L28 186"/>
+			</g>
+			<text x="104" y="176" class="art-note">v = d ÷ t</text>
+			<text x="176" y="208" class="art-note">F = m a</text>
+			<text x="22" y="38" class="art-note small">E = ½ m v²</text>
+			<path d="M16 224 L304 224" class="art-floor"/>
+			<circle r="11" class="art-ball">
+				<animateMotion dur="2.6s" repeatCount="indefinite" path="M52 158 Q150 -44 252 112 L252 212" keyPoints="0;0.82;1" keyTimes="0;0.8;1" calcMode="linear"/>
+			</circle>
+		</svg>
+	</div>
+
+	<ul class="how">
+		<li><span aria-hidden="true">📍</span><b>A real situation</b>Road trips, dropped phones, power bills.</li>
+		<li><span aria-hidden="true">💡</span><b>One big idea</b>The physics, in plain English.</li>
+		<li><span aria-hidden="true">🧪</span><b>A lab to play with</b>+5 XP for trying it.</li>
+		<li><span aria-hidden="true">✏️</span><b>Real problems</b>+10 XP each on the first try.</li>
+	</ul>
+
+	<h2 class="section-title">Course map</h2>
+	<ol class="map" id="map"></ol>
+
+	<p class="home-foot">Stuck? The <b>🧮 calculator</b> and the <b>📐 formula sheet</b> are always up top. Your progress is saved in this browser. <button class="link-btn" id="reset" type="button">Start over</button></p>
+</section>
+
+<!-- ================================================================ 1. Speed -->
+<section class="view lesson" id="speed" hidden data-icon="🚗" data-title="Is speeding worth it?" data-mins="6" data-blurb="Speed, distance and time, on a road trip with your lead-footed cousin.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🚗</div>
+		<div>
+			<p class="eyebrow">Speed</p>
+			<h2>Is speeding actually worth it?</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>You're driving 300 miles to visit family. Your cousin, who has a lead foot, swears they "make great time" by doing 80 while everyone else does 70.</p>
+		<p>Is the extra speed (and the speeding-ticket risk) really buying them much? Let's do the math your cousin never did.</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p><b>Speed</b> is how much distance you cover in a certain amount of time.</p>
+		<div class="formula"><span>speed = distance ÷ time</span><small>v = d ÷ t</small></div>
+		<p>Like any equation, you can rearrange it to find whichever piece you're missing:</p>
+		<ul class="ticks">
+			<li><b>distance = speed × time</b>: 2 hours at 60 mph covers 120 miles.</li>
+			<li><b>time = distance ÷ speed</b>: 120 miles at 60 mph takes 2 hours.</li>
+		</ul>
+		<p><b>Average speed</b> counts everything, including red lights, the drive-thru and the gas station: total distance ÷ total time.</p>
+		<p class="aside"><b>Physics word:</b> <i>velocity</i> is speed plus a direction. "60 mph north" is a velocity. Going around a curve at a steady 60 mph, your speed stays the same but your velocity changes, because your direction does.</p>
+		<p class="aside"><b>Unit tip:</b> to turn hours into minutes, multiply by 60. So 0.25 hours is 15 minutes.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: The road-trip race</h3>
+		<p>Set the trip length and both speeds, then race. Watch how little time the extra speed buys, especially on short trips.</p>
+		<div class="lab" data-lab="roadtrip"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="speed-1" data-answer="5" data-unit="hours">
+			<p>Grandma lives 300 miles away. Including one snack stop, you average 60 mph. How many hours does the drive take?</p>
+			<p class="hint">You know the distance and the speed. Use time = distance ÷ speed.</p>
+			<div class="solution"><p>time = 300 mi ÷ 60 mph = <b>5 hours</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="speed-2" data-answer="32.1" data-abs="1.5" data-unit="minutes">
+			<p>Same 300-mile trip. You drive 70 mph and your cousin drives 80 mph. How many minutes sooner does your cousin arrive?</p>
+			<p class="hint">Find each driver's time in hours, subtract, then multiply by 60 to get minutes.</p>
+			<div class="solution"><p>You: 300 ÷ 70 = 4.29 h. Cousin: 300 ÷ 80 = 3.75 h. The difference is 0.54 h, and 0.54 × 60 = <b>about 32 minutes</b>. Not nothing, but that's 300 miles at 10 over the limit the whole way.</p></div>
+		</div>
+
+		<div class="problem" data-id="speed-3" data-answer="1.48" data-abs="0.15" data-unit="minutes">
+			<p>Your commute is 12 miles of highway. How many minutes do you save by driving 75 mph instead of 65 mph?</p>
+			<p class="hint">Same steps as before: the time at each speed, subtract, then × 60.</p>
+			<div class="solution"><p>12 ÷ 65 = 0.1846 h, and 12 ÷ 75 = 0.1600 h. The difference is 0.0246 h, and × 60 that's <b>about 1.5 minutes</b>. One song's worth of time, and only if traffic lets you hold 75 the whole way.</p></div>
+		</div>
+
+		<div class="problem" data-id="speed-4" data-type="choice">
+			<p>You drive 60 miles to the lake at 30 mph (traffic!), then 60 miles home at 60 mph. What was your average speed for the whole trip?</p>
+			<ul class="choices">
+				<li>45 mph</li>
+				<li data-correct>40 mph</li>
+				<li>50 mph</li>
+				<li>42 mph</li>
+			</ul>
+			<p class="hint">Average speed = total distance ÷ total time. How long did each half take?</p>
+			<div class="solution"><p>There: 60 ÷ 30 = 2 h. Back: 60 ÷ 60 = 1 h. That's 120 miles in 3 hours, so <b>40 mph</b>. It isn't 45, because you spent twice as long going slow.</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Speeding saves less time than it feels like, and the savings shrink the faster you already go. On a typical commute it's a minute or two. If you're late, leaving five minutes earlier beats driving 10 mph faster.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 2. Stopping -->
+<section class="view lesson" id="stopping" hidden data-icon="🦌" data-title="Can you stop in time?" data-mins="8" data-blurb="Acceleration, reaction time and why speed hurts squared.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🦌</div>
+		<div>
+			<p class="eyebrow">Acceleration</p>
+			<h2>Can you stop in time?</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>It's dusk on a country road. A deer steps out about 50 meters ahead (half a football field). Whether you stop in time comes down to three things: how fast you're going, how quickly you react and what the road is like.</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p><b>Acceleration</b> is how quickly your velocity changes.</p>
+		<div class="formula"><span>acceleration = change in velocity ÷ time</span><small>a = Δv ÷ t</small></div>
+		<p>A car that goes from 0 to 27 m/s (60 mph) in 6 seconds accelerates at 4.5 m/s²: it gains 4.5 m/s of speed every second. Braking is the same thing in reverse, which we call <b>deceleration</b>.</p>
+		<p>Your <b>stopping distance</b> comes in two parts:</p>
+		<ul class="ticks">
+			<li><b>Reaction distance = speed × reaction time.</b> While your brain notices the deer and your foot moves, you're still going full speed.</li>
+			<li><b>Braking distance = speed² ÷ (2 × deceleration).</b> Good tires on dry pavement can slow you by about 7 m/s². Wet roads, about 4. Ice, about 1.</li>
+		</ul>
+		<div class="formula"><span>stopping distance = v × t<sub>react</sub> + v² ÷ 2a</span></div>
+		<p class="aside"><b>See that speed²?</b> Double your speed and your braking distance gets <i>four times</i> longer. That's why a little extra speed makes such a big difference in a crash.</p>
+		<p class="aside"><b>Unit tip:</b> physics formulas want meters and seconds. To turn mph into m/s, multiply by 0.447 (or roughly divide by 2.2).</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: The deer test</h3>
+		<p>Pick your speed, how alert you are and the road. Then hit the brakes and see if you stop before the deer. The yellow bar is reaction distance, the red bar is braking distance.</p>
+		<div class="lab" data-lab="stopping"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="stop-1" data-answer="3" data-unit="m/s²">
+			<p>A car goes from 0 to 27 m/s (that's 60 mph) in 9 seconds. What's its acceleration?</p>
+			<p class="hint">acceleration = change in velocity ÷ time.</p>
+			<div class="solution"><p>a = (27 − 0) m/s ÷ 9 s = <b>3 m/s²</b>. Every second, it gains 3 m/s of speed.</p></div>
+		</div>
+
+		<div class="problem" data-id="stop-2" data-answer="50" data-unit="meters">
+			<p>You're cruising at 25 m/s (about 56 mph) and glance at a text for 2 seconds. How far does your car travel while you're not looking?</p>
+			<p class="hint">Your speed doesn't change while you look away. distance = speed × time.</p>
+			<div class="solution"><p>d = 25 m/s × 2 s = <b>50 m</b>. Half a football field, driving blind.</p></div>
+		</div>
+
+		<div class="problem" data-id="stop-3" data-answer="25" data-unit="meters">
+			<p>You're going 20 m/s and your brakes can slow you at 8 m/s². What's your braking distance once you hit the pedal?</p>
+			<p class="hint">braking distance = speed² ÷ (2 × deceleration).</p>
+			<div class="solution"><p>d = 20² ÷ (2 × 8) = 400 ÷ 16 = <b>25 m</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="stop-4" data-type="choice">
+			<p>You double your speed, from 30 mph to 60 mph. What happens to your braking distance?</p>
+			<ul class="choices">
+				<li>It stays the same</li>
+				<li>It doubles</li>
+				<li data-correct>It gets 4 times longer</li>
+				<li>It gets 8 times longer</li>
+			</ul>
+			<p class="hint">Look at the formula: the speed is squared.</p>
+			<div class="solution"><p>Braking distance depends on speed². (2 × speed)² = 4 × speed², so the braking distance gets <b>4 times longer</b>. (Your reaction distance only doubles.)</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Speed and distraction both make you need more road to stop, but speed hurts <i>squared</i>. A phone in your hand turns a one-second reaction into a three-second one, which at highway speed is about 80 meters of driving blind.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 3. Falling -->
+<section class="view lesson" id="falling" hidden data-icon="📱" data-title="Catch it!" data-mins="7" data-blurb="Gravity, free fall and how fast your reflexes really are.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">📱</div>
+		<div>
+			<p class="eyebrow">Gravity &amp; free fall</p>
+			<h2>Catch it! (Your phone, that is)</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>Your phone slips out of your hand. You have less than a second before it hits the floor. How long, exactly? And are your reflexes fast enough to catch it?</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p>Near Earth's surface, gravity speeds up every falling object by about 9.8 m/s every second. We call that number <b>g</b>.</p>
+		<div class="formula"><span>g = 9.8 m/s²</span></div>
+		<p>Galileo's big insight: heavy and light things fall at the same rate, as long as air isn't in the way. In 1971, astronaut David Scott dropped a hammer and a feather on the Moon, where there's no air, and they landed together.</p>
+		<p>For something dropped from rest:</p>
+		<div class="formula"><span>distance fallen = ½ × g × t²</span><span>speed = g × t</span><small>or, from a height h: v = √(2 g h)</small></div>
+		<p>Because time is squared, falling things pick up ground fast: 5 cm in the first 0.1 second, 20 cm by 0.2 seconds and 44 cm by 0.3 seconds.</p>
+		<p class="aside"><b>About air:</b> on Earth, air pushes back harder the faster you go. A skydiver stops speeding up at around 120 mph (their <i>terminal velocity</i>), and a feather barely speeds up at all.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: The ruler-drop reaction test</h3>
+		<p>A classic: a friend dangles a meter stick between your fingers and lets go, and you catch it. How far it fell tells you your reaction time, using t = √(2d ÷ g). Press <b>Get ready</b>, then click, tap or hit the space bar the instant the ruler drops.</p>
+		<div class="lab" data-lab="ruler"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="fall-1" data-answer="0.553" data-unit="seconds">
+			<p>Your phone slips out of your hand 1.5 m above the floor. How long until it hits? (Ignore air resistance.)</p>
+			<p class="hint">Start with d = ½ g t² and solve for t: t = √(2d ÷ g).</p>
+			<div class="solution"><p>t = √(2 × 1.5 ÷ 9.8) = √0.306 = <b>0.55 s</b>. Your reaction time is around 0.2 s, so catching it is possible, but only just.</p></div>
+		</div>
+
+		<div class="problem" data-id="fall-2" data-answer="5.42" data-unit="m/s">
+			<p>How fast is that phone going when it hits the floor?</p>
+			<p class="hint">Use speed = g × t with the time from the last problem, or v = √(2 g h).</p>
+			<div class="solution"><p>v = 9.8 × 0.553 = <b>5.4 m/s</b>, about 12 mph. That's why phone cases exist.</p></div>
+		</div>
+
+		<div class="problem" data-id="fall-3" data-answer="44.1" data-unit="meters">
+			<p>You drop a rock into an old well and hear the splash 3 seconds later. About how deep is the well? (Ignore the time the sound takes to come back up.)</p>
+			<p class="hint">distance = ½ × g × t².</p>
+			<div class="solution"><p>d = ½ × 9.8 × 3² = 4.9 × 9 = <b>44 m</b>. (The splash sound takes about 0.13 s to climb back up, so the real well is a bit shallower.)</p></div>
+		</div>
+
+		<div class="problem" data-id="fall-4" data-type="choice">
+			<p>You drop a bowling ball and a soccer ball off the same balcony at the same moment. Ignoring air resistance, which hits the ground first?</p>
+			<ul class="choices">
+				<li>The bowling ball, because it's heavier</li>
+				<li>The soccer ball, because it's lighter</li>
+				<li data-correct>They land at the same time</li>
+				<li>It depends on the height</li>
+			</ul>
+			<p class="hint">Does g depend on mass?</p>
+			<div class="solution"><p>Gravity speeds up everything by the same 9.8 m/s², whatever its mass. <b>They land together.</b> (In real air, from a tall enough height, the soccer ball would fall a little behind.)</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Everything falls the same way: 9.8 m/s faster every second. Time is squared in the distance formula, so a fall twice as long covers four times the height.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 4. Projectiles -->
+<section class="view lesson" id="projectiles" hidden data-icon="🏀" data-title="Nothing but net" data-mins="7" data-blurb="Projectile motion, with a free throw you can actually take.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🏀</div>
+		<div>
+			<p class="eyebrow">Projectile motion</p>
+			<h2>Nothing but net</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>Every free throw, every water-balloon toss and every stream from a garden hose traces the same curve, called a <b>parabola</b>. There's one trick that makes all of them easy to figure out.</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p>Split the motion into two parts that completely ignore each other:</p>
+		<ul class="ticks">
+			<li><b>Sideways:</b> once the ball leaves your hand, nothing pushes it sideways, so it moves at a steady speed. <i>distance = speed × time.</i></li>
+			<li><b>Up and down:</b> gravity works on it exactly like your falling phone, 9.8 m/s² downward.</li>
+		</ul>
+		<p>Time is the only thing the two parts share. Find the time from one, and use it in the other.</p>
+		<p class="aside"><b>Weird but true:</b> a bullet fired perfectly level and a bullet dropped from the same height hit the ground at the same time. The TV show MythBusters tested it, and the two landed almost exactly together.</p>
+		<p>On flat ground with no air resistance, a 45° launch goes farthest:</p>
+		<div class="formula"><span>range = v² × sin(2θ) ÷ g</span><small>at 45°: range = v² ÷ g</small></div>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: Free-throw line</h3>
+		<p>The rim is 3.05 m (10 feet) off the floor and about 4.2 m away. Pick your launch angle and speed, and shoot. Tip: arcs between about 45° and 55° give the ball the biggest target.</p>
+		<div class="lab" data-lab="freethrow"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="proj-1" data-type="choice">
+			<p>At the same moment, you throw one ball straight out sideways and simply drop another from the same height. Which hits the ground first?</p>
+			<ul class="choices">
+				<li>The thrown ball</li>
+				<li>The dropped ball</li>
+				<li data-correct>They hit at the same time</li>
+			</ul>
+			<p class="hint">Does moving sideways change how fast something falls?</p>
+			<div class="solution"><p>The sideways motion doesn't affect the falling. Both start with no downward speed and fall with the same g, so <b>they land together</b>. The thrown one just lands farther away.</p></div>
+		</div>
+
+		<div class="problem" data-id="proj-2" data-answer="40.8" data-unit="meters">
+			<p>You kick a soccer ball at 20 m/s at a 45° angle. On flat ground with no air resistance, how far does it go?</p>
+			<p class="hint">At 45°, range = v² ÷ g.</p>
+			<div class="solution"><p>Range = 20² ÷ 9.8 = 400 ÷ 9.8 = <b>about 41 m</b>. (Real air makes real kicks a bit shorter.)</p></div>
+		</div>
+
+		<div class="problem" data-id="proj-3" data-answer="1.01" data-unit="meters">
+			<p>A marble rolls off a 1.25 m tall table at 2 m/s. How far from the table's edge does it land?</p>
+			<p class="hint">First, find how long it takes to fall 1.25 m: t = √(2h ÷ g). Then sideways distance = speed × time.</p>
+			<div class="solution"><p>Falling: t = √(2 × 1.25 ÷ 9.8) = 0.505 s. Sideways: 2 m/s × 0.505 s = <b>about 1.0 m</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="proj-4" data-answer="0.70" data-unit="seconds">
+			<p>A basketball player jumps 0.6 m straight up. What's their total hang time, up and back down?</p>
+			<p class="hint">Going up takes the same time as coming down. Find the time to fall 0.6 m, then double it.</p>
+			<div class="solution"><p>Down: t = √(2 × 0.6 ÷ 9.8) = 0.35 s. Up takes the same, so the hang time is <b>0.70 s</b>. Even the best dunkers rarely hang for much more than a second.</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Sideways motion and up-and-down motion are independent. Solve them separately, and connect them with time.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 5. Newton -->
+<section class="view lesson" id="newton" hidden data-icon="🍎" data-title="Heavy in the elevator" data-mins="8" data-blurb="Newton's three laws, and what your bathroom scale really measures.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🍎</div>
+		<div>
+			<p class="eyebrow">Newton's laws</p>
+			<h2>Why you feel heavy in elevators</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>Stand on a bathroom scale in an elevator (people really do this) and the number jumps around as the elevator starts and stops. Is your weight changing? Isaac Newton can explain, with three laws.</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<ol class="laws">
+			<li><b>Inertia.</b> Things keep doing what they're doing, whether that's sitting still or moving at a steady speed in a straight line, until a force makes them change. That's why your body keeps going forward when the bus brakes, and why seatbelts matter.</li>
+			<li><b>Force = mass × acceleration.</b> The more mass something has, the more force it takes to change its motion. One newton (N) of force speeds up 1 kg by 1 m/s². Your <i>weight</i> is the force of gravity on you: W = m × g.</li>
+			<li><b>Every push has an equal push back.</b> Push on a wall and the wall pushes on you. A rocket pushes exhaust down, and the exhaust pushes the rocket up.</li>
+		</ol>
+		<div class="formula"><span>F = m × a</span><span>W = m × g</span></div>
+		<p>Here's the secret about scales: they don't measure your mass. They measure how hard they have to push <i>up</i> on you. When the elevator speeds up going up, the floor has to push harder, so you read heavier:</p>
+		<div class="formula"><span>scale force = m × (g + a)</span><small>a is positive when speeding up going up</small></div>
+		<p class="aside"><b>History:</b> in 1854, Elisha Otis stood on an elevator platform high above a crowd in New York and had the rope cut. His safety brake caught it. Every elevator since has one.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: The elevator scale</h3>
+		<p>Ride up and down and watch the scale. Then, for science, cut the cable. (The emergency brakes work, just like in real elevators.)</p>
+		<div class="lab" data-lab="elevator"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="newton-1" data-answer="300" data-unit="newtons">
+			<p>Your car stalls and you push it. The car's mass is 1,500 kg. Ignoring friction, how much force does it take to give it an acceleration of 0.2 m/s²?</p>
+			<p class="hint">F = m × a.</p>
+			<div class="solution"><p>F = 1,500 × 0.2 = <b>300 N</b>, about the same as lifting a 30 kg bag of dog food.</p></div>
+		</div>
+
+		<div class="problem" data-id="newton-2" data-answer="686" data-unit="newtons">
+			<p>What's the weight (the pull of gravity, in newtons) of a 70 kg person?</p>
+			<p class="hint">W = m × g.</p>
+			<div class="solution"><p>W = 70 × 9.8 = <b>686 N</b>. Mass (kg) is how much stuff you're made of; weight (N) is how hard gravity pulls on it.</p></div>
+		</div>
+
+		<div class="problem" data-id="newton-3" data-answer="72.2" data-unit="kg">
+			<p>A 60 kg person stands on a scale in an elevator that's speeding up while going up, at 2 m/s². What does the scale read in kg? (Scales show force ÷ 9.8.)</p>
+			<p class="hint">The floor pushes with m × (g + a). Divide that by 9.8 to get the scale's reading.</p>
+			<div class="solution"><p>Force = 60 × (9.8 + 2) = 708 N, and 708 ÷ 9.8 = <b>72.2 kg</b>. You didn't gain 12 kg. The floor is just pushing harder to speed you up.</p></div>
+		</div>
+
+		<div class="problem" data-id="newton-4" data-type="choice">
+			<p>Your bus brakes hard and you lurch forward. Why?</p>
+			<ul class="choices">
+				<li>The brakes push you forward</li>
+				<li data-correct>Your body keeps moving forward because of inertia</li>
+				<li>Gravity tilts forward when the bus stops</li>
+				<li>The air in the bus pushes you</li>
+			</ul>
+			<p class="hint">Which of Newton's laws is about things that keep doing what they were doing?</p>
+			<div class="solution"><p>Newton's first law. The bus slows down, but nothing has slowed <i>you</i> down yet, so <b>you keep going forward</b> until a seat, a pole or a seatbelt pushes back.</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>It takes a force to <i>change</i> motion, not to keep it going. A scale reads how hard it pushes on you, which is why it reads more when you speed up going up, less going down and zero in free fall.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 6. Momentum -->
+<section class="view lesson" id="momentum" hidden data-icon="🥚" data-title="The egg drop" data-mins="7" data-blurb="Momentum and impulse: why airbags, helmets and bent knees work.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🥚</div>
+		<div>
+			<p class="eyebrow">Momentum</p>
+			<h2>The egg drop</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>Why do airbags save lives? Why do you bend your knees when you jump off a wall? Why does a dropped phone survive the couch but not the sidewalk? It's all the same idea.</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p><b>Momentum</b> is mass in motion. A loaded truck at 30 mph has far more of it than a bike at 30 mph.</p>
+		<div class="formula"><span>momentum = mass × velocity</span><small>p = m × v</small></div>
+		<p>To stop something, you have to take away all of its momentum. The force you need depends on how much time you take to do it:</p>
+		<div class="formula"><span>force × time = change in momentum</span><small>F × Δt = Δp (called impulse)</small></div>
+		<p>The change in momentum is set by how fast you were going. But you get to choose the <i>time</i>. Make the stop last 10 times longer and the force drops 10 times. That's the job of airbags, crumple zones, bike helmets, gym mats and bent knees.</p>
+		<p class="aside"><b>Conservation of momentum:</b> in a collision or a push-off, the total momentum before equals the total after. Push off a friend on ice skates and you both slide away, with the lighter person going faster.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: Egg drop</h3>
+		<p>Choose a height and something to land on. Softer things stop the egg over a longer time, so the force on it is smaller. An eggshell cracks at somewhere around 30 newtons.</p>
+		<div class="lab" data-lab="eggdrop"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="mom-1" data-answer="30000" data-unit="kg·m/s">
+			<p>What's the momentum of a 1,200 kg car going 25 m/s?</p>
+			<p class="hint">p = m × v.</p>
+			<div class="solution"><p>p = 1,200 × 25 = <b>30,000 kg·m/s</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="mom-2" data-answer="7000" data-unit="newtons">
+			<p>In a crash, a 70 kg passenger moving at 15 m/s is stopped by an airbag in 0.15 s. What's the average force on them?</p>
+			<p class="hint">F × Δt = Δp, so F = (m × v) ÷ Δt.</p>
+			<div class="solution"><p>Δp = 70 × 15 = 1,050 kg·m/s. F = 1,050 ÷ 0.15 = <b>7,000 N</b>. Hitting a hard dashboard in 0.01 s instead would mean 105,000 N, 15 times more.</p></div>
+		</div>
+
+		<div class="problem" data-id="mom-3" data-answer="1" data-unit="m/s">
+			<p>On an ice rink, an 80 kg parent and a 40 kg kid stand still, then push off each other. The kid slides away at 2 m/s. How fast does the parent slide the other way?</p>
+			<p class="hint">The total momentum starts at zero, so the two must cancel out: m₁ × v₁ = m₂ × v₂.</p>
+			<div class="solution"><p>Kid: 40 × 2 = 80 kg·m/s. Parent: 80 × v = 80, so v = <b>1 m/s</b>. Twice the mass, half the speed.</p></div>
+		</div>
+
+		<div class="problem" data-id="mom-4" data-type="choice">
+			<p>Why do you bend your knees when you land from a jump?</p>
+			<ul class="choices">
+				<li>It makes your momentum smaller before you land</li>
+				<li data-correct>It makes the stop take longer, so the force is smaller</li>
+				<li>It makes gravity weaker</li>
+				<li>It doesn't matter, it's just a habit</li>
+			</ul>
+			<p class="hint">You can't change how fast you're going when you land. What can you change?</p>
+			<div class="solution"><p>Your momentum when you land is set by how high you jumped. Bending your knees stretches out the stopping time, and since F = Δp ÷ Δt, <b>a longer stop means a smaller force</b> on your joints.</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Stopping takes the same change in momentum however you do it. Spread it over more time and the force goes down. Almost every piece of safety gear you own is a time-stretcher.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 7. Energy -->
+<section class="view lesson" id="energy" hidden data-icon="🍩" data-title="Burn off that donut" data-mins="7" data-blurb="Work, potential and kinetic energy, and what a Calorie really is.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🍩</div>
+		<div>
+			<p class="eyebrow">Energy</p>
+			<h2>Burn off that donut</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>A glazed donut has about 250 Calories. You decide to burn it off by taking the stairs at work. How many floors is that? (Brace yourself.)</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p><b>Energy</b> is what it takes to make things happen. It's never created or destroyed; it just changes form. We measure it in <b>joules</b> (J).</p>
+		<ul class="ticks">
+			<li><b>Work = force × distance.</b> Lifting a 10 kg box 1 m takes about 98 J.</li>
+			<li><b>Potential energy</b> is energy stored by height: PE = m × g × h.</li>
+			<li><b>Kinetic energy</b> is energy of motion: KE = ½ × m × v².</li>
+		</ul>
+		<div class="formula"><span>PE = m g h</span><span>KE = ½ m v²</span></div>
+		<p>A roller coaster trades one for the other. At the bottom of a drop, the height energy has all turned into speed, so m g h = ½ m v², which gives v = √(2 g h). That's the same formula as a falling phone.</p>
+		<p class="aside"><b>About food:</b> one food Calorie (with a capital C) is 4,184 J. Your muscles are only about 25% efficient, and the rest of the energy turns into heat. That's why exercise makes you sweat.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: Stairs vs. snacks</h3>
+		<p>Pick a snack and set your weight. We'll work out how many floors of stairs (3 m each) it takes to use up its energy, counting your muscles' 25% efficiency.</p>
+		<div class="lab" data-lab="donut"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="energy-1" data-answer="294" data-unit="joules">
+			<p>You lift a 20 kg suitcase 1.5 m up into your car's trunk. How much energy (work) did that take?</p>
+			<p class="hint">Lifting stores energy as PE = m × g × h.</p>
+			<div class="solution"><p>PE = 20 × 9.8 × 1.5 = <b>294 J</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="energy-2" data-answer="31.3" data-unit="m/s">
+			<p>A roller coaster starts from rest at the top of a 50 m drop. Ignoring friction, how fast is it going at the bottom?</p>
+			<p class="hint">All the PE turns into KE: m g h = ½ m v², so v = √(2 g h).</p>
+			<div class="solution"><p>v = √(2 × 9.8 × 50) = √980 = <b>31 m/s</b>, about 70 mph. Notice that the mass canceled out: a full train and an empty one reach the same speed.</p></div>
+		</div>
+
+		<div class="problem" data-id="energy-3" data-answer="200000" data-unit="joules">
+			<p>What's the kinetic energy of a 1,000 kg car going 20 m/s?</p>
+			<p class="hint">KE = ½ × m × v². Square the speed first.</p>
+			<div class="solution"><p>KE = ½ × 1,000 × 20² = 500 × 400 = <b>200,000 J</b>. To stop, your brakes have to turn all of that into heat.</p></div>
+		</div>
+
+		<div class="problem" data-id="energy-4" data-type="choice">
+			<p>Which has more kinetic energy: a 1,000 kg car going 20 m/s, or a 2,000 kg truck going 10 m/s?</p>
+			<ul class="choices">
+				<li data-correct>The car</li>
+				<li>The truck</li>
+				<li>They're the same</li>
+			</ul>
+			<p class="hint">Work out ½ m v² for each. Which one gets squared?</p>
+			<div class="solution"><p>Car: ½ × 1,000 × 20² = 200,000 J. Truck: ½ × 2,000 × 10² = 100,000 J. <b>The car has twice as much</b>, because speed is squared and mass isn't.</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Energy only changes form: food into work and heat, height into speed, speed into brake heat. And food holds a <i>lot</i> of it. Exercise is great for you, but it's a slow way to burn off a donut.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 8. Power -->
+<section class="view lesson" id="power" hidden data-icon="💡" data-title="Why is my power bill so high?" data-mins="8" data-blurb="Watts, kilowatt-hours, volts and amps, and that space heater.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">💡</div>
+		<div>
+			<p class="eyebrow">Power &amp; electricity</p>
+			<h2>Why is my power bill so high?</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>You plug a little space heater in under your desk to keep your toes warm. Next month, your electric bill jumps by $60. How can something so small cost so much?</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p><b>Power</b> is how fast energy gets used. It's measured in <b>watts</b> (W): 1 watt is 1 joule every second.</p>
+		<div class="formula"><span>power = energy ÷ time</span><small>P = E ÷ t</small></div>
+		<p>Your power company bills you in <b>kilowatt-hours</b> (kWh): 1 kWh is 1,000 watts running for 1 hour.</p>
+		<div class="formula"><span>cost = kilowatts × hours × price per kWh</span></div>
+		<p>Anything that makes heat (space heaters, dryers, ovens, hair dryers, kettles) is a power hog. Phones, laptops and LED bulbs barely sip.</p>
+		<p><b>Voltage</b> (volts, V) is how hard electricity is pushed, and <b>current</b> (amps, A) is how much of it flows. Multiply them to get power:</p>
+		<div class="formula"><span>power = voltage × current</span><small>P = V × I</small></div>
+		<p class="aside"><b>In your house:</b> US outlets are 120 V, and most circuits have a 15 A breaker. That's about 1,800 W before the breaker trips to keep the wires from overheating. It's why space heaters almost all top out at 1,500 W.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: Your power bill</h3>
+		<p>Set how many hours a day you use each thing, and see what it adds to a 30-day bill. Then try running the whole kitchen on one circuit.</p>
+		<div class="lab" data-lab="powerbill"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="power-1" data-answer="61.2" data-abs="0.6" data-unit="dollars">
+			<p>A 1,500 W space heater runs 8 hours a day for 30 days. Electricity costs $0.17 per kWh. How much does it add to your bill?</p>
+			<p class="hint">Turn watts into kilowatts first (1,500 W = 1.5 kW). Then cost = kW × hours × price.</p>
+			<div class="solution"><p>Energy: 1.5 kW × 8 h × 30 days = 360 kWh. Cost: 360 × $0.17 = <b>$61.20</b>, for one little heater.</p></div>
+		</div>
+
+		<div class="problem" data-id="power-2" data-answer="10" data-unit="amps">
+			<p>A 1,200 W microwave plugs into a 120 V outlet. How much current does it draw?</p>
+			<p class="hint">P = V × I, so I = P ÷ V.</p>
+			<div class="solution"><p>I = 1,200 ÷ 120 = <b>10 A</b>. That's two-thirds of a typical 15 A circuit, all by itself.</p></div>
+		</div>
+
+		<div class="problem" data-id="power-3" data-answer="15.82" data-tol="0.04" data-unit="dollars a year">
+			<p>You swap a 60 W bulb for a 9 W LED that's just as bright. It's on 5 hours a day. At $0.17 per kWh, how much do you save in a year?</p>
+			<p class="hint">The savings come from the difference, 60 − 9 = 51 W. Work out the kWh in a year, then multiply by the price.</p>
+			<div class="solution"><p>51 W × 5 h × 365 days = 93,075 Wh, or 93.1 kWh. Then 93.1 × $0.17 = <b>about $15.80 a year</b>, for one bulb. Swap 20 bulbs and it's over $300.</p></div>
+		</div>
+
+		<div class="problem" data-id="power-4" data-type="choice">
+			<p>Your 1,800 W hair dryer and 1,100 W microwave are on the same 120 V circuit with a 15 A breaker. What happens if you run both at once?</p>
+			<ul class="choices">
+				<li>Nothing, it's fine</li>
+				<li data-correct>The breaker trips, because together they need about 24 A</li>
+				<li>The microwave runs at half power</li>
+				<li>The outlet switches to 240 V</li>
+			</ul>
+			<p class="hint">Add up the watts, then find the current with I = P ÷ V.</p>
+			<div class="solution"><p>The total is 2,900 W, and 2,900 ÷ 120 = 24 A. That's way over 15 A, so <b>click: the breaker trips</b>. It's a safety switch that keeps the wires in your walls from overheating.</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>To guess what something costs, look at its watts and how long it runs. Heat-makers are the hogs. And if your breaker keeps tripping, add up the watts on that circuit: past about 1,800 W, it's the physics, not bad luck.</p>
+	</div>
+</section>
+
+<!-- ================================================================ 9. Sound -->
+<section class="view lesson" id="sound" hidden data-icon="⛈️" data-title="How far away is the storm?" data-mins="8" data-blurb="Waves, the speed of sound and the Doppler effect. Sound on!">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">⛈️</div>
+		<div>
+			<p class="eyebrow">Waves &amp; sound</p>
+			<h2>How far away is that storm?</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📍 The situation</h3>
+		<p>Flash! You start counting: one-Mississippi, two-Mississippi… BOOM. Your grandpa always said to count the seconds and divide by five to get the distance in miles. Was he right?</p>
+	</div>
+
+	<div class="card concept">
+		<h3>💡 The big idea</h3>
+		<p>The light from the lightning reaches you almost instantly: it covers 300,000 km every second. Sound is much slower, about <b>343 m/s</b> in air. That's roughly 1 km every 3 seconds, or 1 mile every 5 seconds. Grandpa was right.</p>
+		<div class="formula"><span>distance = speed of sound × time</span><small>count ÷ 5 ≈ miles · count ÷ 3 ≈ km</small></div>
+		<p>Sound is a <b>wave</b> of pressure moving through the air. Every wave follows the same rule:</p>
+		<div class="formula"><span>speed = frequency × wavelength</span><small>v = f × λ</small></div>
+		<p><b>Frequency</b> (in hertz, Hz) is how many waves pass by each second. You hear it as pitch: more waves per second sounds higher.</p>
+		<p><b>The Doppler effect:</b> when an ambulance drives toward you, each wave starts a little closer to you than the last, so the waves bunch up and the siren sounds higher. As it drives away, the waves spread out and it sounds lower. That "neee-yowww" is physics. Police radar and weather radar use the same trick with radio waves.</p>
+		<p class="aside"><b>Safety:</b> if you can hear thunder, you're close enough to be struck. Head inside and wait 30 minutes after the last rumble.</p>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: Count the thunder</h3>
+		<p>Turn your sound on. When the lightning flashes, a timer starts. Press <b>I heard it!</b> (or the space bar) when the thunder reaches you, and see how close your distance is.</p>
+		<div class="lab" data-lab="thunder"></div>
+	</div>
+
+	<div class="card lab-card">
+		<h3>🧪 Lab: The Doppler drive-by</h3>
+		<p>Send an ambulance past you and listen to the pitch drop. The circles are its sound waves. Watch them bunch up in front and stretch out behind.</p>
+		<div class="lab" data-lab="doppler"></div>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ Your turn</h3>
+
+		<div class="problem" data-id="sound-1" data-answer="2058" data-unit="meters">
+			<p>You see lightning and count 6 seconds until the thunder. Sound travels at 343 m/s. How far away was the strike?</p>
+			<p class="hint">distance = speed × time.</p>
+			<div class="solution"><p>d = 343 × 6 = <b>2,058 m</b>, about 2 km or 1.3 miles. Divide-by-5 gives 1.2 miles and divide-by-3 gives 2 km, which is close enough to know it's time to head inside.</p></div>
+		</div>
+
+		<div class="problem" data-id="sound-2" data-answer="0.78" data-unit="meters">
+			<p>The note A that orchestras tune to has a frequency of 440 Hz. With sound at 343 m/s, what's its wavelength?</p>
+			<p class="hint">v = f × λ, so λ = v ÷ f.</p>
+			<div class="solution"><p>λ = 343 ÷ 440 = <b>0.78 m</b>. Each wave of that note is about as long as your arm.</p></div>
+		</div>
+
+		<div class="problem" data-id="sound-3" data-answer="343" data-unit="meters">
+			<p>You shout toward a canyon wall and hear the echo 2 seconds later. How far away is the wall?</p>
+			<p class="hint">The sound has to get there and come back.</p>
+			<div class="solution"><p>In 2 s, sound travels 343 × 2 = 686 m. That's a round trip, so the wall is <b>343 m away</b>. Bats and ships' sonar use echoes in exactly this way.</p></div>
+		</div>
+
+		<div class="problem" data-id="sound-4" data-type="choice">
+			<p>An ambulance with its siren on is driving away from you. Compared with the siren's real pitch, what do you hear?</p>
+			<ul class="choices">
+				<li>A higher pitch</li>
+				<li data-correct>A lower pitch</li>
+				<li>The same pitch, just quieter</li>
+			</ul>
+			<p class="hint">Moving away: do the waves bunch up or spread out?</p>
+			<div class="solution"><p>Driving away stretches the waves out, so fewer reach you each second: <b>a lower pitch</b>. That's the "yowww" at the end of "neee-yowww".</p></div>
+		</div>
+	</div>
+
+	<div class="card takeaway">
+		<h3>✅ Takeaway</h3>
+		<p>Light is basically instant and sound isn't, so the gap between them tells you the distance. Waves carry pitch as frequency, and anything moving toward you squeezes its waves into a higher pitch.</p>
+	</div>
+</section>
+
+<!-- ================================================================ Final exam -->
+<section class="view exam" id="exam" hidden data-icon="🎓" data-title="Final exam" data-mins="8" data-blurb="Ten questions from the whole course. Pass it and print your diploma.">
+	<header class="lesson-head">
+		<div class="lesson-icon" aria-hidden="true">🎓</div>
+		<div>
+			<p class="eyebrow">Final exam</p>
+			<h2>The final exam</h2>
+		</div>
+	</header>
+
+	<div class="card story">
+		<h3>📋 The rules</h3>
+		<p>Ten questions from across the whole course. You get <b>one try</b> at each and there are no hints, but the 🧮 calculator and 📐 formula sheet are allowed. Each right answer is worth 20 XP. Finish all ten to unlock your diploma.</p>
+	</div>
+
+	<div class="card practice">
+		<h3>✏️ The questions</h3>
+
+		<div class="problem" data-id="exam-1" data-answer="4" data-unit="km/h">
+			<p>You walk 3 km in 45 minutes. What's your average speed in km/h?</p>
+			<div class="solution"><p>45 minutes is 0.75 hours, and 3 ÷ 0.75 = <b>4 km/h</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-2" data-answer="45" data-unit="meters">
+			<p>You're going 30 m/s, and it takes you 1.5 s to react to brake lights ahead. How far do you travel before your foot even touches the brake?</p>
+			<div class="solution"><p>Reaction distance = 30 × 1.5 = <b>45 m</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-3" data-answer="2.02" data-unit="seconds">
+			<p>A water balloon is dropped off a 20 m tall roof. How long until it splashes? (Ignore air.)</p>
+			<div class="solution"><p>t = √(2 × 20 ÷ 9.8) = √4.08 = <b>2.0 s</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-4" data-type="choice">
+			<p>You toss a ball straight up. At the very top, for an instant, it isn't moving. What's its acceleration right then?</p>
+			<ul class="choices">
+				<li>Zero</li>
+				<li data-correct>9.8 m/s² downward</li>
+				<li>9.8 m/s² upward</li>
+				<li>It depends on how hard you threw it</li>
+			</ul>
+			<div class="solution"><p>Gravity never switches off. Even at the top, the ball is speeding up downward at <b>9.8 m/s²</b>, which is exactly why it doesn't stay up there.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-5" data-answer="2" data-unit="m/s²">
+			<p>A 50 kg skateboarder gets a net push of 100 N. What's their acceleration?</p>
+			<div class="solution"><p>a = F ÷ m = 100 ÷ 50 = <b>2 m/s²</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-6" data-type="choice">
+			<p>Car crumple zones make crashes safer because they:</p>
+			<ul class="choices">
+				<li>Make the car heavier</li>
+				<li data-correct>Make the collision last longer, which lowers the force</li>
+				<li>Get rid of the car's momentum before the crash</li>
+				<li>Make the car bounce off whatever it hits</li>
+			</ul>
+			<div class="solution"><p>F = Δp ÷ Δt. Crumpling stretches out the time of the crash, so <b>the force on the people inside goes down</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-7" data-answer="116" data-unit="joules">
+			<p>A 0.145 kg baseball is pitched at 40 m/s (about 90 mph). What's its kinetic energy?</p>
+			<div class="solution"><p>KE = ½ × 0.145 × 40² = 0.0725 × 1,600 = <b>116 J</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-8" data-answer="12" data-unit="dollars">
+			<p>A 500 W gaming PC runs 4 hours a day for 30 days. At $0.20 per kWh, what does that cost?</p>
+			<div class="solution"><p>0.5 kW × 4 h × 30 days = 60 kWh, and 60 × $0.20 = <b>$12</b>.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-9" data-answer="1.92" data-abs="0.15" data-unit="miles">
+			<p>You count 9 seconds between a flash and its thunder. About how many miles away was the lightning? (Sound travels 343 m/s, and 1 mile is about 1,609 m.)</p>
+			<div class="solution"><p>343 × 9 = 3,087 m, and 3,087 ÷ 1,609 = <b>1.9 miles</b>. The quick rule (9 ÷ 5 = 1.8) gets you close.</p></div>
+		</div>
+
+		<div class="problem" data-id="exam-10" data-type="choice">
+			<p>Astronauts float around inside the space station. Why?</p>
+			<ul class="choices">
+				<li>There's no gravity in space</li>
+				<li data-correct>They're in free fall, falling around Earth along with the station</li>
+				<li>The station's air holds them up</li>
+				<li>They're too far from the Sun</li>
+			</ul>
+			<div class="solution"><p>At the station's height, gravity is still about 90% as strong as on the ground. But the station and everyone in it are falling together, moving sideways so fast that they keep missing Earth. Like the elevator with its cable cut, <b>free fall makes a scale read zero</b>.</p></div>
+		</div>
+	</div>
+
+	<div class="card diploma-card">
+		<p class="diploma-lock" id="diploma-lock">Answer all 10 questions to unlock your diploma.</p>
+		<div id="diploma-wrap" hidden>
+			<label class="ctl dip-name">Your name, for the diploma
+				<input id="dip-name" type="text" maxlength="40" autocomplete="name" placeholder="Your name">
+			</label>
+			<div class="diploma" id="diploma">
+				<p class="dip-top">This certifies that</p>
+				<p class="dip-who" id="dip-who">A Curious Human</p>
+				<p class="dip-mid">has completed</p>
+				<p class="dip-course">Physics 101<span>The Real-Life Edition</span></p>
+				<p class="dip-score" id="dip-score"></p>
+				<div class="dip-foot">
+					<span><b id="dip-date"></b>Date</span>
+					<span class="dip-seal" aria-hidden="true">g</span>
+					<span><b>Brandon Skar</b>Dean of Dropped Phones</span>
+				</div>
+			</div>
+			<div class="lab-buttons"><button class="btn primary" id="print-diploma" type="button">🖨️ Print or save as PDF</button></div>
+		</div>
+	</div>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+	<span>© <span id="year">2026</span> Brandon Skar</span>
+	<a href="/">Back to brandonskar.com</a>
+</footer>
+
+<dialog id="formulas" aria-labelledby="formulas-title">
+	<div class="dialog-body">
+		<div class="dialog-head">
+			<h2 id="formulas-title">📐 Formula sheet</h2>
+			<button class="calc-x" type="button" data-close aria-label="Close formula sheet">×</button>
+		</div>
+		<dl class="sheet">
+			<dt>Speed</dt><dd>speed = distance ÷ time <i>(v = d ÷ t)</i></dd>
+			<dt>Acceleration</dt><dd>a = change in velocity ÷ time</dd>
+			<dt>Stopping</dt><dd>reaction distance = v × t<sub>react</sub> · braking distance = v² ÷ 2a</dd>
+			<dt>Falling (from rest)</dt><dd>d = ½ g t² · v = g t · v = √(2 g h) · t = √(2d ÷ g)</dd>
+			<dt>Projectiles</dt><dd>sideways: x = v<sub>x</sub> × t · range = v² sin(2θ) ÷ g</dd>
+			<dt>Newton</dt><dd>F = m a · weight W = m g · scale force = m (g + a)</dd>
+			<dt>Momentum</dt><dd>p = m v · impulse F × Δt = Δp · total p before = total p after</dd>
+			<dt>Energy</dt><dd>work = F × d · PE = m g h · KE = ½ m v²</dd>
+			<dt>Power</dt><dd>P = E ÷ t · P = V × I · cost = kW × hours × price</dd>
+			<dt>Waves</dt><dd>v = f λ · distance = v × t</dd>
+		</dl>
+		<h3>Handy numbers</h3>
+		<ul class="numbers">
+			<li>g = 9.8 m/s²</li>
+			<li>sound ≈ 343 m/s</li>
+			<li>1 mph = 0.447 m/s</li>
+			<li>1 mile = 1,609 m</li>
+			<li>1 kg ≈ 2.2 lb</li>
+			<li>1 m ≈ 3.28 ft</li>
+			<li>1 food Calorie = 4,184 J</li>
+			<li>1 kWh = 3.6 million J</li>
+			<li>US outlet = 120 V</li>
+		</ul>
+	</div>
+</dialog>
+
+<div class="calc" id="calc" hidden role="dialog" aria-labelledby="calc-title">
+	<div class="calc-head">
+		<b id="calc-title">🧮 Calculator</b>
+		<button class="calc-x" type="button" data-close aria-label="Close calculator">×</button>
+	</div>
+	<form class="calc-form" id="calc-form">
+		<input id="calc-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="like sqrt(2*1.5/9.8)" aria-label="Calculation">
+		<output id="calc-out" for="calc-in">0</output>
+	</form>
+	<div class="calc-keys">
+		<button type="button" data-ins="sqrt(">√</button>
+		<button type="button" data-ins="^2">x²</button>
+		<button type="button" data-ins="^">^</button>
+		<button type="button" data-ins="(">(</button>
+		<button type="button" data-ins=")">)</button>
+		<button type="button" data-ins="π">π</button>
+		<button type="button" data-ins="g">g</button>
+		<button type="button" data-ins="×">×</button>
+		<button type="button" data-ins="÷">÷</button>
+		<button type="button" data-clear>C</button>
+	</div>
+	<p class="calc-tip">Answers as you type. Knows √, ^, π, g = 9.8, and sin, cos, tan in degrees. Enter saves the answer as <b>ans</b>.</p>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<script src="labs.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

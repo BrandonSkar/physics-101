@@ -1,0 +1,23 @@
+// Physics 101 on Cloudflare (see worker.js). Deploy with npm run deploy.
+{
+  "name": "physics-101",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-01",
+  // The worker answers every request (routing, headers) and fetches files from site/ itself.
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+  // Only /physics. Mochi Garden's Worker (a custom domain) answers the rest
+  // of brandonskar.com, and routes run in front of it.
+  "routes": [
+    { "pattern": "brandonskar.com/physics*", "zone_name": "brandonskar.com" }
+  ],
+  // Empty here; npm run dev sets it to 1 (plain http on this PC, no https redirect).
+  "vars": { "LOCAL": "" },
+  "workers_dev": false,
+  "observability": { "enabled": true }
+}
